@@ -17,7 +17,7 @@ public class QuattroScript : MonoBehaviour
 
     void Start()
     {
-        
+        GameState.Instance.PlayerFlags.Add(PlayerFlags.Invulnerable);
     }
 
     void Update()
@@ -27,7 +27,7 @@ public class QuattroScript : MonoBehaviour
         {
             Elapsed += Time.deltaTime;
 
-            if(Elapsed > 5)
+            if(Elapsed > 1f)
             {
                 SharedUtils.ChangeScene(NextScene);
             }

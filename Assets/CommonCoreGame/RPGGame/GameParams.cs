@@ -15,7 +15,7 @@ namespace CommonCore
         public static bool UseCustomLeveling { get; private set; } = true;
         public static bool UseDerivedSkills { get; private set; } = true;
 
-        public static PlayerViewType DefaultPlayerView { get; private set; } = PlayerViewType.PreferFirst;
+        public static PlayerViewType DefaultPlayerView { get; private set; } = PlayerViewType.ForceFirst;
 
         public static bool UseFallDamage { get; private set; } = true;
         public static bool UseRandomDamage { get; private set; } = true;

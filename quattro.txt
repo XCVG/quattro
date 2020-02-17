@@ -8,7 +8,9 @@ ignore most things
 
 kill bad guy
 
+intro now skippable
 
+more help in game now
 
 music
 
