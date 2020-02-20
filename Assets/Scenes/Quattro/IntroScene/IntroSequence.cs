@@ -26,7 +26,7 @@ public class IntroSequence : MonoBehaviour
 
         TargetImage.sprite = Slide1;
         //yield return new WaitForSeconds(10f);
-        yield return WaitOrSkip(10f);
+        yield return WaitOrSkip(14f);
 
         yield return null; //debouncing
 
