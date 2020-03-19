@@ -18,6 +18,7 @@ namespace CommonCore
         public static Version UnityVersion { get; private set; } //auto-set
         public static string UnityVersionName { get; private set; } //auto-set
         public static RuntimePlatform Platform { get; private set; } //auto-set
+        public static ScriptingImplementation ScriptingBackend { get; private set; } //auto-set
 
         //*****game version info
         public static string GameName { get; private set; } //auto-set from Unity settings
@@ -119,8 +120,19 @@ namespace CommonCore
                 Debug.LogError($"Failed to decode version string \"{Application.version}\" (please use something resembling semantic versioning)");
                 Debug.LogException(e);
             }
-
+            
+            //PLATFORM HANDLING
             Platform = Application.platform;
+
+            //afaict no way to check these at runtime
+#if UNITY_WSA && !ENABLE_IL2CPP
+            ScriptingBackend = ScriptingImplementation.WinRTDotNET;
+#elif ENABLE_IL2CPP
+            ScriptingBackend = ScriptingImplementation.IL2CPP;
+#else
+            ScriptingBackend = ScriptingImplementation.Mono2x; //default
+#endif
+
 
             //PATH HANDLING
 

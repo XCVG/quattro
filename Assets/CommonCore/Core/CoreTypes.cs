@@ -69,7 +69,7 @@ namespace CommonCore
     /// <summary>
     /// Console command attribute, syntactically compatible with SickDev.CommandSystem
     /// </summary>
-    public class CommandAttribute : Attribute
+    public class CommandAttribute : UnityEngine.Scripting.PreserveAttribute
     {
         public CommandAttribute()
         {
@@ -80,5 +80,26 @@ namespace CommonCore
         public string alias { get; set; }
         public string className { get; set; }
         public bool useClassName { get; set; }
+    }
+
+    /// <summary>
+    /// Defines possible scripting backends. Carbon-copy of UnityEditor.ScriptingImplementation
+    /// </summary>
+    public enum ScriptingImplementation
+    {
+        /// <summary>
+        /// The standard Mono 2.6 runtime.
+        /// </summary>
+        Mono2x = 0,
+
+        /// <summary>
+        /// Unity's .NET runtime.
+        /// </summary>
+        IL2CPP = 1,
+
+        /// <summary>
+        /// Microsoft's .NET runtime.
+        /// </summary>
+        WinRTDotNET = 2
     }
 }

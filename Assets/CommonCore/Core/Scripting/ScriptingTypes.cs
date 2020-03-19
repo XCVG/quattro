@@ -9,7 +9,7 @@ namespace CommonCore.Scripting
     /// Attach to a method to register it with the scripting system
     /// </summary>
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
-    public class CCScriptAttribute : Attribute
+    public class CCScriptAttribute : UnityEngine.Scripting.PreserveAttribute
     {
         public string Name { get; set; }
         public string ClassName { get; set; }
