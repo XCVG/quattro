@@ -41,4 +41,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Quattro/EasterEggScene.unity
     guid: 05753c73015534842aa12389056328af
+  - enabled: 1
+    path: Assets/Scenes/Meta/BigscreenMainMenuScene.unity
+    guid: fcfbbc6059717c847a347dad038fbb37
   m_configObjects: {}
