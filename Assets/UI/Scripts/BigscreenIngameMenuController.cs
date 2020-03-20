@@ -27,6 +27,8 @@ public class BigscreenIngameMenuController : MonoBehaviour
     private void Start()
     {
         MainPanel.SetActive(false); //in case I forget to deactivate it
+
+        EasterEggHack.InjectEasterEggHack(); //because
     }
 
     private void Update()

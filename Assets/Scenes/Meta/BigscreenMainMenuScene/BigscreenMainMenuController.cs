@@ -32,6 +32,7 @@ public class BigscreenMainMenuController : MonoBehaviour
             SystemText.gameObject.SetActive(false);
         }
 
+        StartCoroutine(CoEasterEgg());
     }
 
     public void OnClickNew()
@@ -95,6 +96,14 @@ public class BigscreenMainMenuController : MonoBehaviour
     public void OnClickExit()
     {
         Application.Quit();
+    }
+
+    private IEnumerator CoEasterEgg()
+    {
+        //yield return new WaitForSecondsRealtime(10f);
+        yield return new WaitForSecondsRealtime(60f * 4.2f);
+
+        SharedUtils.ChangeScene("EasterEggScene");
     }
 
 }
