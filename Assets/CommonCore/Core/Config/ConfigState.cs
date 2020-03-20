@@ -132,7 +132,7 @@ namespace CommonCore.Config
         //AUDIO CONFIG
         public float MusicVolume { get; set; } = 0.8f;
         public float SoundVolume { get; set; } = 0.8f;
-        public AudioSpeakerMode SpeakerMode { get; set; }
+        public AudioSpeakerMode SpeakerMode { get; set; } = AudioSpeakerMode.Stereo;
 
         //VIDEO CONFIG
         [JsonIgnore]

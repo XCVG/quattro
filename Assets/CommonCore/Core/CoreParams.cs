@@ -174,10 +174,13 @@ namespace CommonCore
 
             //create data folder if it doesn't exist
             if (!Directory.Exists(PersistentDataPath))
-                Directory.CreateDirectory(PersistentDataPath);
-            
+                Directory.CreateDirectory(PersistentDataPath); //failing this is considered fatal
+
             //special handling for ScreenshotPath
-            if(UseGlobalScreenshotFolder)
+#if UNITY_WSA
+            ScreenshotsPath = Path.Combine(PersistentDataPath, "screenshot");
+#else
+            if (UseGlobalScreenshotFolder)
             {
                 ScreenshotsPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyPictures), "Screenshots");
             }
@@ -185,10 +188,19 @@ namespace CommonCore
             {
                 ScreenshotsPath = Path.Combine(PersistentDataPath, "screenshot");
             }
+#endif
 
-            //create screenshot folder if it doesn't exist
-            if (!Directory.Exists(ScreenshotsPath))
-                Directory.CreateDirectory(ScreenshotsPath);
+            //create screenshot folder if it doesn't exist (this is a survivable error)
+            try
+            {
+                if (!Directory.Exists(ScreenshotsPath))
+                    Directory.CreateDirectory(ScreenshotsPath);
+            }
+            catch(Exception e)
+            {
+                Debug.LogError($"Failed to create screenshots directory ({ScreenshotsPath})");
+                Debug.LogException(e);
+            }
         }
     }
 
