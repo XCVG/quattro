@@ -18,6 +18,7 @@ namespace CommonCore
         public static Version UnityVersion { get; private set; } //auto-set
         public static string UnityVersionName { get; private set; } //auto-set
         public static RuntimePlatform Platform { get; private set; } //auto-set
+        public static ScriptingImplementation ScriptingBackend { get; private set; } //auto-set
 
         //*****game version info
         public static string GameName { get; private set; } //auto-set from Unity settings
@@ -119,8 +120,19 @@ namespace CommonCore
                 Debug.LogError($"Failed to decode version string \"{Application.version}\" (please use something resembling semantic versioning)");
                 Debug.LogException(e);
             }
-
+            
+            //PLATFORM HANDLING
             Platform = Application.platform;
+
+            //afaict no way to check these at runtime
+#if UNITY_WSA && !ENABLE_IL2CPP
+            ScriptingBackend = ScriptingImplementation.WinRTDotNET;
+#elif ENABLE_IL2CPP
+            ScriptingBackend = ScriptingImplementation.IL2CPP;
+#else
+            ScriptingBackend = ScriptingImplementation.Mono2x; //default
+#endif
+
 
             //PATH HANDLING
 
@@ -162,10 +174,13 @@ namespace CommonCore
 
             //create data folder if it doesn't exist
             if (!Directory.Exists(PersistentDataPath))
-                Directory.CreateDirectory(PersistentDataPath);
-            
+                Directory.CreateDirectory(PersistentDataPath); //failing this is considered fatal
+
             //special handling for ScreenshotPath
-            if(UseGlobalScreenshotFolder)
+#if UNITY_WSA
+            ScreenshotsPath = Path.Combine(PersistentDataPath, "screenshot");
+#else
+            if (UseGlobalScreenshotFolder)
             {
                 ScreenshotsPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyPictures), "Screenshots");
             }
@@ -173,10 +188,19 @@ namespace CommonCore
             {
                 ScreenshotsPath = Path.Combine(PersistentDataPath, "screenshot");
             }
+#endif
 
-            //create screenshot folder if it doesn't exist
-            if (!Directory.Exists(ScreenshotsPath))
-                Directory.CreateDirectory(ScreenshotsPath);
+            //create screenshot folder if it doesn't exist (this is a survivable error)
+            try
+            {
+                if (!Directory.Exists(ScreenshotsPath))
+                    Directory.CreateDirectory(ScreenshotsPath);
+            }
+            catch(Exception e)
+            {
+                Debug.LogError($"Failed to create screenshots directory ({ScreenshotsPath})");
+                Debug.LogException(e);
+            }
         }
     }
 

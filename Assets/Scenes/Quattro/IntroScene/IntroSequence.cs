@@ -26,7 +26,7 @@ public class IntroSequence : MonoBehaviour
 
         TargetImage.sprite = Slide1;
         //yield return new WaitForSeconds(10f);
-        yield return WaitOrSkip(10f);
+        yield return WaitOrSkip(14f);
 
         yield return null; //debouncing
 
@@ -43,7 +43,7 @@ public class IntroSequence : MonoBehaviour
     {
         for(float t = 0; t < time; t += Time.deltaTime)
         {
-            if(MappedInput.GetButtonDown(CommonCore.Input.DefaultControls.Use) || MappedInput.GetButtonDown(CommonCore.Input.DefaultControls.Fire) || Input.GetKeyDown(KeyCode.Space))
+            if(MappedInput.GetButtonDown(CommonCore.Input.DefaultControls.Use) || MappedInput.GetButtonDown(CommonCore.Input.DefaultControls.Fire) || Input.GetButtonDown("Submit") || Input.GetKeyDown(KeyCode.Space))
             {
                 yield break;
             }

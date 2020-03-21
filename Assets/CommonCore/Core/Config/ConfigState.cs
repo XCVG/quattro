@@ -132,7 +132,7 @@ namespace CommonCore.Config
         //AUDIO CONFIG
         public float MusicVolume { get; set; } = 0.8f;
         public float SoundVolume { get; set; } = 0.8f;
-        public AudioSpeakerMode SpeakerMode { get; set; }
+        public AudioSpeakerMode SpeakerMode { get; set; } = AudioSpeakerMode.Stereo;
 
         //VIDEO CONFIG
         [JsonIgnore]
@@ -166,6 +166,7 @@ namespace CommonCore.Config
         public float LookSpeed { get; set; } = 1.0f;
         public bool LookInvert { get; set; } = false;
         public KeyCode ScreenshotKey { get; set; } = KeyCode.F12;
+        public bool UseBigScreenMode { get; set; } = false;
 
         //EXTRA/GAME-SPECIFIC CONFIG
         public HashSet<string> CustomConfigFlags { get; private set; } = new HashSet<string>();
